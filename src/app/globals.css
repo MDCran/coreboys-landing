@@ -1,0 +1,453 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0a0908;
+  --fg: #f2eee5;
+  --muted: #7a766f;
+  --line: rgba(242, 238, 229, 0.10);
+  --accent: #ff3b1f;
+  --accent-soft: #ffb39d;
+  --signal: #ff3b1f;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-display: var(--font-bebas);
+  --font-sans: var(--font-bricolage);
+  --font-mono: var(--font-jetbrains);
+}
+
+@layer base {
+  html,
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--bg);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-bebas), "Bebas Neue", "Arial Narrow", sans-serif;
+    letter-spacing: -0.01em;
+  }
+  .font-mono {
+    font-family: var(--font-jetbrains), ui-monospace, monospace;
+  }
+  .bg-dot-grid {
+    background-image: radial-gradient(rgba(242, 238, 229, 0.45) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-position: 0 0;
+  }
+  .bg-thin-grid {
+    background-image:
+      linear-gradient(to right, rgba(242, 238, 229, 0.4) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(242, 238, 229, 0.4) 1px, transparent 1px);
+    background-size: 88px 88px;
+  }
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
+    mix-blend-mode: overlay;
+    opacity: 0.18;
+    z-index: 1;
+  }
+  .scanlines::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.025) 0,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    z-index: 1;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .vignette {
+    background:
+      radial-gradient(120% 80% at 50% 0%, transparent 40%, rgba(0, 0, 0, 0.55) 100%),
+      radial-gradient(60% 60% at 50% 50%, rgba(255, 59, 31, 0.08), transparent 70%);
+  }
+  .hero-fade-left {
+    background: linear-gradient(to right, rgba(10, 9, 8, 0.92) 0%, rgba(10, 9, 8, 0.7) 35%, rgba(10, 9, 8, 0.2) 60%, rgba(10, 9, 8, 0) 100%);
+  }
+}
+
+/* ---------- Tooltip ---------- */
+/* Solid speech-bubble. Uses classic border-triangle for the arrow so it
+ * always renders the same way the body does — no transparency surprises. */
+.tooltipped {
+  position: relative;
+}
+
+/* Tooth — a CSS border triangle pointing UP at the element from below */
+.tooltipped::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 2px);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #f2eee5;
+  transform: translate(-50%, 4px);
+  opacity: 0;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Body — solid bg, sits 8px below the element so the tooth bridges the gap */
+.tooltipped::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  transform: translate(-50%, 4px);
+  white-space: nowrap;
+  padding: 7px 11px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0a0908;
+  background-color: #f2eee5;
+  border-radius: 4px;
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.tooltipped:hover::before,
+.tooltipped:focus-visible::before,
+.tooltipped:hover::after,
+.tooltipped:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Top variant: tooth points DOWN, body sits above the element */
+.tooltipped[data-tooltip-position="top"]::before {
+  top: auto;
+  bottom: calc(100% + 2px);
+  border-bottom: none;
+  border-top: 6px solid #f2eee5;
+  transform: translate(-50%, -4px);
+}
+.tooltipped[data-tooltip-position="top"]::after {
+  top: auto;
+  bottom: calc(100% + 8px);
+  transform: translate(-50%, -4px);
+}
+.tooltipped[data-tooltip-position="top"]:hover::before,
+.tooltipped[data-tooltip-position="top"]:focus-visible::before,
+.tooltipped[data-tooltip-position="top"]:hover::after,
+.tooltipped[data-tooltip-position="top"]:focus-visible::after {
+  transform: translate(-50%, 0);
+}
+
+.roll-call-name {
+  color: var(--fg);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  /* small text-shadow keeps names readable against busy photos */
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+}
+/* Animated underline at the baseline */
+.roll-call-name::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.08em;
+  width: 100%;
+  height: 0.07em;
+  background: var(--name-color, var(--accent));
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  pointer-events: none;
+  box-shadow: 0 0 12px var(--name-color, var(--accent));
+}
+.roll-call-name:hover,
+.roll-call-name:focus-visible {
+  color: var(--name-color, var(--accent));
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6),
+    0 0 30px color-mix(in oklch, var(--name-color, var(--accent)) 60%, transparent);
+}
+.roll-call-name:hover::before,
+.roll-call-name:focus-visible::before {
+  transform: scaleX(1);
+}
+
+/* ---------- Brand hover (clean, no isolated stacking context) ---------- */
+/* Avoid pseudo-element fills + isolation: isolate so tooltips can escape
+ * the button's stacking context and render above neighbouring elements. */
+.brand-hover {
+  position: relative;
+  z-index: 0;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease,
+    box-shadow 0.2s ease, transform 0.15s ease;
+}
+.brand-hover:hover,
+.brand-hover:focus-visible {
+  border-color: var(--brand);
+  color: var(--fg);
+  background-color: color-mix(in oklch, var(--brand) 12%, transparent);
+  box-shadow: 0 0 0 1px var(--brand) inset,
+    0 8px 32px -8px color-mix(in oklch, var(--brand) 55%, transparent);
+  transform: translateY(-1px);
+  /* Raise the whole stacking context so the tooltip floats above
+   * sibling buttons in adjacent grid rows */
+  z-index: 60;
+}
+.brand-hover svg {
+  transition: color 0.2s ease, transform 0.25s ease;
+}
+.brand-hover:hover svg {
+  color: var(--brand);
+}
+
+.brand-hover-icon {
+  position: relative;
+  transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.brand-hover-icon:hover {
+  color: var(--brand);
+  background-color: color-mix(in oklch, var(--brand) 18%, transparent);
+  box-shadow: 0 0 0 1px var(--brand) inset;
+}
+
+/* ---------- Member-color pill (footer) ---------- */
+.member-pill:hover {
+  border-color: var(--name-color, var(--accent));
+  color: var(--name-color, var(--accent));
+  box-shadow: 0 0 0 1px var(--name-color, var(--accent)) inset;
+}
+
+/* ---------- Member card community color hover ---------- */
+.member-card {
+  --hover: var(--name-color, var(--accent));
+  transition: outline-color 0.25s ease;
+}
+.member-card .member-name {
+  transition: color 0.25s ease;
+}
+.member-card:hover {
+  outline-color: var(--hover);
+}
+.member-card:hover .member-name {
+  color: var(--hover);
+}
+.member-card .member-photo {
+  transition: filter 0.5s ease;
+}
+.member-card:hover .member-photo {
+  filter: grayscale(0) brightness(1.05);
+}
+
+/* Members dropdown row hover */
+.member-row {
+  border-left: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease, transform 0.18s ease;
+}
+.member-row:hover,
+.member-row.is-active {
+  background: color-mix(in oklch, var(--name-color, var(--accent)) 16%, transparent);
+  border-left-color: var(--name-color, var(--accent));
+  color: var(--name-color, var(--accent));
+}
+.member-row:hover {
+  transform: translateX(2px);
+}
+.member-row:active {
+  transform: translateX(2px) scale(0.98);
+}
+
+/* Members dropdown trigger button — clear cursor + press feedback */
+.dropdown-trigger {
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease,
+    transform 0.12s ease;
+}
+.dropdown-trigger:active {
+  transform: scale(0.97);
+}
+
+/* Group-photo face zones — invisible until hovered */
+.face-zone {
+  width: 30%;
+  aspect-ratio: 1 / 1;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+.face-zone > span:first-child {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Twitch status button hover */
+.twitch-status {
+  cursor: pointer;
+}
+.twitch-status:hover {
+  background: color-mix(in oklch, #9146FF 36%, transparent) !important;
+  border-color: #9146FF !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 28px -8px rgba(145, 70, 255, 0.7);
+  transform: translateY(-1px);
+}
+.twitch-status:active {
+  transform: translateY(0);
+}
+
+/* Navbar wordmark — keep "the" and "coreboys" identical in size/weight */
+.brand-wordmark {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--fg);
+  display: inline-flex;
+  align-items: baseline;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+.brand-wordmark .brand-the {
+  color: var(--accent);
+  margin-right: 0;
+}
+.brand-wordmark:hover {
+  color: var(--accent);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@keyframes gallery-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes gallery-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes blink {
+  0%, 60% { opacity: 1; }
+  70%, 100% { opacity: 0.15; }
+}
+.animate-blink {
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-drift {
+  animation: drift 6s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.96); }
+  50% { opacity: 0.85; transform: scale(1.04); }
+}
+.animate-glow-pulse {
+  animation: glow-pulse 3.4s ease-in-out infinite;
+}
+
+/* ---------- Play button ---------- */
+/* Solid red disc, white triangle. One soft outer ring that pulses to hint at
+ * interactivity. Group-driven hover (parent has `group`) so the entire video
+ * card surfaces the affordance. */
+.play-btn {
+  background: var(--accent);
+  box-shadow:
+    0 14px 38px -8px rgba(255, 59, 31, 0.55),
+    0 4px 14px -2px rgba(0, 0, 0, 0.6);
+  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.group:hover .play-btn,
+.group:focus-visible .play-btn,
+.play-btn:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 22px 60px -10px rgba(255, 59, 31, 0.7),
+    0 6px 18px -2px rgba(0, 0, 0, 0.7);
+}
+.group:active .play-btn,
+.play-btn:active {
+  transform: scale(1.02);
+}
+
+/* Concentric breathing ring around the disc — pure CSS, no JS */
+.play-btn::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(255, 59, 31, 0.35);
+  animation: play-ring 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  pointer-events: none;
+}
+@keyframes play-ring {
+  0% {
+    transform: scale(0.94);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(1.18);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.94);
+    opacity: 0;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.reveal {
+  animation: reveal 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
