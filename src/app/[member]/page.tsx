@@ -55,13 +55,20 @@ export async function generateMetadata(
       url,
       title,
       description,
-      images: [{ url: m.photo, width: 1200, height: 1500, alt: `${m.alias} — ${m.realName}` }],
+      images: [
+        {
+          url: "/embed-preview.png",
+          width: 1615,
+          height: 907,
+          alt: "TheCoreBoys — CORE / Create Own Run Everything embed preview",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [m.photo],
+      images: ["/embed-preview.png"],
     },
   };
 }

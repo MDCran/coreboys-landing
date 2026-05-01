@@ -70,10 +70,10 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/group/main.jpg",
-        width: 1200,
-        height: 800,
-        alt: "CORE — TheCoreBoys group photo",
+        url: "/embed-preview.png",
+        width: 1615,
+        height: 907,
+        alt: "TheCoreBoys — CORE / Create Own Run Everything embed preview with all six members",
       },
     ],
   },
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     creator: "@thecoreboys",
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    images: ["/group/main.jpg"],
+    images: ["/embed-preview.png"],
   },
   robots: {
     index: true,
