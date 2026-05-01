@@ -58,8 +58,9 @@ export async function generateMetadata(
       images: [
         {
           url: "/embed-preview.png",
-          width: 1615,
-          height: 907,
+          width: 1200,
+          height: 630,
+          type: "image/png",
           alt: "TheCoreBoys — CORE / Create Own Run Everything embed preview",
         },
       ],
@@ -68,7 +69,14 @@ export async function generateMetadata(
       card: "summary_large_image",
       title,
       description,
-      images: ["/embed-preview.png"],
+      images: [
+        {
+          url: "/embed-preview.png",
+          width: 1200,
+          height: 630,
+          alt: "TheCoreBoys — CORE / Create Own Run Everything embed preview",
+        },
+      ],
     },
   };
 }

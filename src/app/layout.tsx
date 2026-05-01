@@ -71,8 +71,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/embed-preview.png",
-        width: 1615,
-        height: 907,
+        width: 1200,
+        height: 630,
+        type: "image/png",
         alt: "TheCoreBoys — CORE / Create Own Run Everything embed preview with all six members",
       },
     ],
@@ -83,7 +84,14 @@ export const metadata: Metadata = {
     creator: "@thecoreboys",
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    images: ["/embed-preview.png"],
+    images: [
+      {
+        url: "/embed-preview.png",
+        width: 1200,
+        height: 630,
+        alt: "TheCoreBoys — CORE / Create Own Run Everything embed preview",
+      },
+    ],
   },
   robots: {
     index: true,
