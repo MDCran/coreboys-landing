@@ -57,7 +57,7 @@ function Hero() {
           >
             <p className="mb-6 inline-flex items-center gap-2 border border-[var(--accent)]/60 bg-[var(--bg)]/70 px-3 py-1 font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--accent)] shadow-[0_0_30px_rgba(255,59,31,0.15)] backdrop-blur">
               <span className="size-1.5 rounded-full bg-[var(--accent)] animate-blink" />
-              Future Org of the Year
+              Content Organization
             </p>
 
             <Wordmark />

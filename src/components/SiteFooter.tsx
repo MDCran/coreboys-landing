@@ -99,7 +99,7 @@ export default function SiteFooter() {
       <div className="border-t border-[var(--line)]">
         <div className="mx-auto flex max-w-[1400px] flex-col items-center gap-4 px-5 py-5 text-center text-[var(--muted)] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-6 sm:px-8 sm:text-left">
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.25em]">
-            © {year} CORE Inc. · 3712 Brawdlawn Dr.
+            © {year} CORE Inc.
           </p>
           <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 font-mono text-[10px] uppercase tracking-[0.22em] sm:gap-x-5 sm:tracking-[0.25em]">
             <li>

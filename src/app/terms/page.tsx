@@ -18,7 +18,7 @@ export default function TermsPage() {
         These Terms of Service (&ldquo;Terms&rdquo;) govern your access to and
         use of the CORE (Create Own Run Everything) maintenance lander located
         at <Link href="/" className="underline">{SITE_URL}</Link> (the
-        &ldquo;Site&rdquo;), operated by CORE Inc., 3712 Brawdlawn Dr.
+        &ldquo;Site&rdquo;), operated by CORE Inc.
         (&ldquo;CORE,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;). By using the
         Site you agree to these Terms.
       </p>
@@ -62,9 +62,8 @@ export default function TermsPage() {
       </p>
       <h2>7. Contact</h2>
       <p>
-        Questions about these Terms can be directed to CORE Inc., 3712
-        Brawdlawn Dr., or via the official group channels linked from the
-        homepage.
+        Questions about these Terms can be directed to CORE Inc. via the
+        official group channels linked from the homepage.
       </p>
       <p className="mt-10 text-[var(--muted)]">
         Effective date: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}

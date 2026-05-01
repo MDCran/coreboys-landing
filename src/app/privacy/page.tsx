@@ -23,7 +23,7 @@ export default function PrivacyPage() {
       </h1>
       <div className="mt-10 space-y-5 leading-relaxed text-[var(--fg)]/85">
         <p>
-          CORE Inc., 3712 Brawdlawn Dr. (&ldquo;CORE&rdquo;) operates this
+          CORE Inc. (&ldquo;CORE&rdquo;) operates this
           maintenance lander at{" "}
           <Link href="/" className="underline">
             {SITE_URL}
@@ -85,8 +85,8 @@ export default function PrivacyPage() {
         </p>
         <h2>Contact</h2>
         <p>
-          CORE Inc., 3712 Brawdlawn Dr. — or via the official group channels
-          linked from the homepage.
+          CORE Inc. — or via the official group channels linked from the
+          homepage.
         </p>
         <p className="mt-10 text-[var(--muted)]">
           Effective date:{" "}
