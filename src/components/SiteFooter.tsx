@@ -108,7 +108,7 @@ export default function SiteFooter() {
                 rel="noreferrer noopener"
                 className="text-[var(--accent)] transition hover:text-[var(--fg)]"
               >
-                Website Feedback ↗
+                Give Feedback ↗
               </a>
             </li>
             <li>
