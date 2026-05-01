@@ -8,22 +8,22 @@ export default function SiteFooter() {
 
   return (
     <footer className="relative mt-16 border-t border-[var(--line)]">
-      <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-6 px-5 py-12 sm:px-8">
+      <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-8 px-5 py-10 sm:gap-6 sm:px-8 sm:py-12">
         <div className="col-span-12 md:col-span-6">
           <h2 className="font-display tracking-tight">
-            <span className="block font-mono text-[clamp(11px,1.1vw,14px)] tracking-[0.5em] uppercase text-[var(--accent)] mb-4">
+            <span className="block font-mono text-[10px] tracking-[0.5em] uppercase text-[var(--accent)] mb-3 sm:text-[clamp(11px,1.1vw,14px)] sm:mb-4">
               THE
             </span>
             <span className="flex items-end gap-3 sm:gap-4">
-              <span className="font-display text-[clamp(80px,12vw,180px)] leading-[0.78]">
+              <span className="font-display text-[clamp(64px,16vw,180px)] leading-[0.78]">
                 CORE
               </span>
-              <span className="pb-2 sm:pb-3 font-mono text-[clamp(12px,1.6vw,20px)] tracking-[0.45em] uppercase text-[var(--fg)]/85">
+              <span className="pb-1.5 sm:pb-3 font-mono text-[clamp(11px,2.4vw,20px)] tracking-[0.4em] uppercase text-[var(--fg)]/85">
                 BOYS
               </span>
             </span>
           </h2>
-          <p className="mt-6 max-w-md font-display text-[clamp(20px,2vw,28px)] leading-[1.1] tracking-tight">
+          <p className="mt-5 max-w-md font-display text-[clamp(18px,2.6vw,28px)] leading-[1.15] tracking-tight">
             <span className="text-[var(--accent)]">Create</span>
             <span className="opacity-30">. </span>
             <span>Own</span>
@@ -45,62 +45,63 @@ export default function SiteFooter() {
           </p>
         </div>
 
-        <div className="col-span-12 grid grid-cols-2 content-start gap-3 md:col-span-6">
-          <div className="col-span-2">
-            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--muted)]">
-              Group Socials
-            </p>
-          </div>
-          {groupChannels.map(([k, url]) => (
-            <SocialButton key={k} kind={k} urls={[url]} variant="row" ariaPrefix="CORE on" />
-          ))}
-          <div className="col-span-2 mt-4">
-            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--muted)]">
-              Member Pages
-            </p>
-            <ul className="mt-3 grid grid-cols-3 gap-2">
-              {MEMBERS.map((m) => (
-                <li key={m.slug}>
-                  <Link
-                    href={`/${m.slug}`}
-                    title={`${m.alias} — ${m.realName}`}
-                    data-tooltip={`${m.alias} · ${m.realName}`}
-                    style={{
-                      ["--name-color" as string]:
-                        MEMBER_COLOR[m.slug] ?? "var(--accent)",
-                    }}
-                    className="member-pill tooltipped group flex items-center justify-between border border-[var(--line)] px-3 py-2 transition"
+        <div className="col-span-12 md:col-span-6">
+          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--muted)]">
+            Group Socials
+          </p>
+          <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {groupChannels.map(([k, url]) => (
+              <li key={k}>
+                <SocialButton kind={k} urls={[url]} variant="row" ariaPrefix="CORE on" />
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-6 font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--muted)]">
+            Member Pages
+          </p>
+          <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {MEMBERS.map((m) => (
+              <li key={m.slug}>
+                <Link
+                  href={`/${m.slug}`}
+                  title={`${m.alias} — ${m.realName}`}
+                  data-tooltip={`${m.alias} · ${m.realName}`}
+                  style={{
+                    ["--name-color" as string]:
+                      MEMBER_COLOR[m.slug] ?? "var(--accent)",
+                  }}
+                  className="member-pill tooltipped group flex items-center justify-between border border-[var(--line)] px-2.5 py-2 transition sm:px-3"
+                >
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em]">
+                    {m.alias}
+                  </span>
+                  <svg
+                    viewBox="0 0 16 16"
+                    className="size-2.5 -rotate-45 transition group-hover:rotate-0"
+                    aria-hidden
                   >
-                    <span className="font-mono text-[10px] uppercase tracking-[0.18em]">
-                      {m.alias}
-                    </span>
-                    <svg
-                      viewBox="0 0 16 16"
-                      className="size-2.5 -rotate-45 transition group-hover:rotate-0"
-                      aria-hidden
-                    >
-                      <path
-                        d="M3 8h10M9 4l4 4-4 4"
-                        stroke="currentColor"
-                        strokeWidth="1.4"
-                        fill="none"
-                        strokeLinecap="square"
-                      />
-                    </svg>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+                    <path
+                      d="M3 8h10M9 4l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                      fill="none"
+                      strokeLinecap="square"
+                    />
+                  </svg>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
       <div className="border-t border-[var(--line)]">
-        <div className="mx-auto flex max-w-[1400px] flex-col gap-3 px-5 py-5 text-[var(--muted)] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-6 sm:px-8">
-          <p className="font-mono text-[10px] uppercase tracking-[0.25em]">
+        <div className="mx-auto flex max-w-[1400px] flex-col items-center gap-4 px-5 py-5 text-center text-[var(--muted)] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-6 sm:px-8 sm:text-left">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.25em]">
             © {year} CORE Inc. · 3712 Brawdlawn Dr.
           </p>
-          <ul className="flex flex-wrap items-center gap-x-5 gap-y-1 font-mono text-[10px] uppercase tracking-[0.25em]">
+          <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 font-mono text-[10px] uppercase tracking-[0.22em] sm:gap-x-5 sm:tracking-[0.25em]">
             <li>
               <a
                 href="https://forms.gle/rXxGwpb8rY7WJwHC9"
@@ -127,7 +128,7 @@ export default function SiteFooter() {
               </Link>
             </li>
           </ul>
-          <p className="font-mono text-[10px] uppercase tracking-[0.25em]">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.25em]">
             Website by{" "}
             <a
               href="https://x.com/berryeyu"

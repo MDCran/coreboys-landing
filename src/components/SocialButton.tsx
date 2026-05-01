@@ -94,7 +94,7 @@ export default function SocialButton({
         return "relative brand-hover flex w-full items-center justify-center gap-1.5 border border-[var(--line)] px-2 py-2.5 text-[var(--fg)] transition hover:border-[var(--brand)] hover:text-[var(--on-brand)]";
       case "icon":
       default:
-        return "brand-hover-icon grid size-9 place-items-center rounded-full text-[var(--muted)] transition hover:text-[var(--on-brand)]";
+        return "brand-hover-icon grid size-7 sm:size-9 place-items-center rounded-full text-[var(--muted)] transition hover:text-[var(--on-brand)]";
     }
   })();
 

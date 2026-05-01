@@ -73,7 +73,7 @@ export default function LinkifiedBio({ member }: { member: Member }) {
   const lookup = buildLookup(member);
   const tokens = tokenize(member.bio, lookup);
   return (
-    <p className="mt-6 max-w-xl text-balance leading-relaxed text-[var(--fg)]/90 sm:text-lg">
+    <p className="mt-6 max-w-xl leading-relaxed text-[var(--fg)]/90 [overflow-wrap:anywhere] sm:text-lg">
       {tokens.map((t, i) =>
         t.type === "text" ? (
           <span key={i}>{t.value}</span>

@@ -106,9 +106,9 @@ export default async function MemberPage(props: PageProps<"/[member]">) {
       <JsonLd id={`ld-breadcrumb-${m.slug}`} data={breadcrumbLd} />
       <JsonLd id={`ld-faq-${m.slug}`} data={faqLd} />
 
-      <section className="relative mx-auto max-w-[1400px] px-5 pb-12 pt-10 sm:px-8 lg:pt-16">
+      <section className="relative mx-auto max-w-[1400px] overflow-x-hidden px-5 pb-12 pt-10 sm:px-8 lg:overflow-x-visible lg:pt-16">
         <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-12 lg:col-span-5">
+          <div className="col-span-12 min-w-0 lg:col-span-5">
             <div className="relative aspect-[4/5] overflow-hidden border border-[var(--line)] bg-black">
               <Image
                 src={m.photo}
@@ -134,7 +134,7 @@ export default async function MemberPage(props: PageProps<"/[member]">) {
             </div>
           </div>
 
-          <div className="col-span-12 lg:col-span-7 lg:pl-6">
+          <div className="col-span-12 min-w-0 lg:col-span-7 lg:pl-6">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--accent)]">
                 CORE · Member · {m.index}
@@ -146,10 +146,10 @@ export default async function MemberPage(props: PageProps<"/[member]">) {
                 />
               )}
             </div>
-            <h1 className="mt-3 font-display text-[clamp(72px,12vw,200px)] leading-[0.82] tracking-tight">
+            <h1 className="mt-3 font-display text-[clamp(56px,14vw,200px)] leading-[0.82] tracking-tight break-words">
               {m.alias}
             </h1>
-            <p className="mt-1 font-display text-[clamp(20px,2.4vw,38px)] leading-[1] tracking-tight text-[var(--muted)]">
+            <p className="mt-1 font-display text-[clamp(18px,3.4vw,38px)] leading-[1.05] tracking-tight text-[var(--muted)] break-words">
               {m.realName}
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-3">

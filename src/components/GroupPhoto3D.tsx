@@ -78,8 +78,8 @@ export default function GroupPhoto3D({ src, className }: Props) {
           />
           <Canvas
             camera={{ position: [0, 0, 4.5], fov: 38 }}
-            dpr={[1, 1.6]}
-            gl={{ antialias: true, alpha: true }}
+            dpr={[1, 1.4]}
+            gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
             style={{ background: "transparent" }}
           >
             <Suspense fallback={null}>

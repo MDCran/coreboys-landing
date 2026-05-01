@@ -89,7 +89,10 @@ function ParticleField() {
   const ref = useRef<THREE.Points>(null);
 
   const { geometry, material } = useMemo(() => {
-    const count = 320;
+    // Halve the count on small screens — drops fragment cost noticeably.
+    const isMobile =
+      typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
+    const count = isMobile ? 140 : 320;
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       const r = 5 + Math.random() * 4;
@@ -121,11 +124,14 @@ function ParticleField() {
 }
 
 export default function Scene() {
+  // Cap DPR at 1 on mobile so the GPU isn't running at 3× resolution.
+  const isMobile =
+    typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
   return (
     <Canvas
       camera={{ position: [0, 0, 6.5], fov: 45 }}
-      dpr={[1, 1.6]}
-      gl={{ antialias: true, alpha: true }}
+      dpr={isMobile ? [1, 1] : [1, 1.6]}
+      gl={{ antialias: !isMobile, alpha: true, powerPreference: "low-power" }}
       style={{ background: "transparent" }}
     >
       <BroadcastOrb />

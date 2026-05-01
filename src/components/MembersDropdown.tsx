@@ -42,13 +42,13 @@ export default function MembersDropdown() {
           onClick={() => setOpen((v) => !v)}
           aria-haspopup="menu"
           aria-expanded={open}
-          className="dropdown-trigger flex items-center gap-2 border border-[var(--line)] bg-[var(--bg)]/40 py-1 pl-1 pr-3 hover:border-[var(--accent)]"
+          className="dropdown-trigger flex items-center gap-1.5 sm:gap-2 border border-[var(--line)] bg-[var(--bg)]/40 py-0.5 pl-0.5 pr-2 sm:py-1 sm:pl-1 sm:pr-3 hover:border-[var(--accent)]"
           style={{
             ["--name-color" as string]:
               MEMBER_COLOR[current.slug] ?? "var(--accent)",
           }}
         >
-          <span className="relative size-7 overflow-hidden rounded-full bg-black">
+          <span className="relative size-6 overflow-hidden rounded-full bg-black sm:size-7">
             <Image
               src={current.twitchAvatar ?? current.photo}
               alt={`${current.alias}`}
@@ -58,7 +58,7 @@ export default function MembersDropdown() {
             />
           </span>
           <span
-            className="font-mono text-[11px] uppercase tracking-[0.25em]"
+            className="font-mono text-[10px] uppercase tracking-[0.2em] sm:text-[11px] sm:tracking-[0.25em]"
             style={{ color: MEMBER_COLOR[current.slug] }}
           >
             {current.alias}
@@ -77,7 +77,7 @@ export default function MembersDropdown() {
           onClick={() => setOpen((v) => !v)}
           aria-haspopup="menu"
           aria-expanded={open}
-          className="dropdown-trigger flex items-center gap-2 border border-[var(--line)] bg-[var(--bg)]/40 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.3em] text-[var(--fg)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+          className="dropdown-trigger flex items-center gap-1.5 sm:gap-2 border border-[var(--line)] bg-[var(--bg)]/40 px-2 py-1 sm:px-3 sm:py-1.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[var(--fg)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
         >
           Members
           <svg
@@ -93,7 +93,7 @@ export default function MembersDropdown() {
       {open && (
         <div
           role="menu"
-          className="absolute left-0 top-[calc(100%+8px)] z-50 w-[300px] origin-top border border-[var(--line)] bg-[var(--bg)]/95 p-1 shadow-2xl backdrop-blur-md"
+          className="absolute right-0 md:left-0 md:right-auto top-[calc(100%+8px)] z-50 w-[min(300px,calc(100vw-2rem))] origin-top border border-[var(--line)] bg-[var(--bg)]/95 p-1 shadow-2xl backdrop-blur-md"
         >
           <div className="border-b border-[var(--line)] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--muted)]">
             The Roster · 6

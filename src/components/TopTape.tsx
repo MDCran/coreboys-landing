@@ -16,13 +16,13 @@ export default function TopTape() {
 
   return (
     <div className="sticky top-0 z-40 border-b border-[var(--line)] bg-[var(--bg)]/85 backdrop-blur supports-[backdrop-filter]:bg-[var(--bg)]/65">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-3 px-5 py-3 sm:px-8">
-        <div className="flex items-center gap-3">
+      <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-2 px-3 py-2.5 sm:gap-3 sm:px-8 sm:py-3">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           {onMemberPage && (
             <Link
               href="/"
               aria-label="Back to TheCoreBoys home"
-              className="grid size-7 place-items-center border border-[var(--line)] text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+              className="grid size-7 shrink-0 place-items-center border border-[var(--line)] text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
             >
               <svg viewBox="0 0 16 16" className="size-3" aria-hidden>
                 <path
@@ -37,7 +37,7 @@ export default function TopTape() {
           )}
           <Link
             href="/"
-            className="brand-wordmark whitespace-nowrap"
+            className="brand-wordmark shrink-0 whitespace-nowrap"
             aria-label="TheCoreBoys home"
           >
             <span className="brand-the">the</span>
@@ -58,19 +58,21 @@ export default function TopTape() {
             />
           )}
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex shrink-0 items-center gap-0.5 sm:gap-1">
           <div className="md:hidden">
             <MembersDropdown />
           </div>
-          {groupChannels.map(([k, url]) => (
-            <SocialButton
-              key={k}
-              kind={k}
-              urls={[url]}
-              variant="icon"
-              ariaPrefix="CORE on"
-            />
-          ))}
+          <div className="flex items-center">
+            {groupChannels.map(([k, url]) => (
+              <SocialButton
+                key={k}
+                kind={k}
+                urls={[url]}
+                variant="icon"
+                ariaPrefix="CORE on"
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

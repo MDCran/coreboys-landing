@@ -329,8 +329,8 @@
 /* Navbar wordmark — keep "the" and "coreboys" identical in size/weight */
 .brand-wordmark {
   font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 12px;
-  letter-spacing: 0.3em;
+  font-size: 10px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 500;
   color: var(--fg);
@@ -338,6 +338,12 @@
   align-items: baseline;
   line-height: 1;
   transition: color 0.2s ease;
+}
+@media (min-width: 640px) {
+  .brand-wordmark {
+    font-size: 12px;
+    letter-spacing: 0.3em;
+  }
 }
 .brand-wordmark .brand-the {
   color: var(--accent);
