@@ -120,7 +120,7 @@ export default function SiteFooter() {
           <p className="font-mono text-[10px] uppercase tracking-[0.25em]">
             Website by{" "}
             <a
-              href="https://mdcran.com"
+              href="https://x.com/berryeyu"
               target="_blank"
               rel="noreferrer noopener"
               className="text-[var(--fg)] underline transition hover:text-[var(--accent)]"
