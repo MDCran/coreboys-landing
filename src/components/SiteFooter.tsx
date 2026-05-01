@@ -102,6 +102,16 @@ export default function SiteFooter() {
           </p>
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-1 font-mono text-[10px] uppercase tracking-[0.25em]">
             <li>
+              <a
+                href="https://forms.gle/rXxGwpb8rY7WJwHC9"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-[var(--accent)] transition hover:text-[var(--fg)]"
+              >
+                Website Feedback ↗
+              </a>
+            </li>
+            <li>
               <Link href="/terms" className="transition hover:text-[var(--fg)]">
                 Terms
               </Link>
