@@ -1,37 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { fetchAllLiveStatuses, type LiveStatus } from "@/lib/twitchLive";
 
-type Status = { live: boolean; handle: string | null };
-
-let cache:
-  | {
-      ts: number;
-      statuses: Record<string, Status>;
-    }
-  | null = null;
-
-let inflight: Promise<Record<string, Status>> | null = null;
-
-async function fetchAll(): Promise<Record<string, Status>> {
-  if (cache && Date.now() - cache.ts < 45_000) return cache.statuses;
-  if (inflight) return inflight;
-  inflight = (async () => {
-    try {
-      const res = await fetch("/api/live", { cache: "no-store" });
-      if (!res.ok) return {};
-      const data = (await res.json()) as { statuses?: Record<string, Status> };
-      const statuses = data.statuses ?? {};
-      cache = { ts: Date.now(), statuses };
-      return statuses;
-    } catch {
-      return {};
-    } finally {
-      inflight = null;
-    }
-  })();
-  return inflight;
-}
+type Status = LiveStatus;
 
 type Props = {
   slug: string;
@@ -45,7 +17,7 @@ export default function LiveBadge({ slug, size = "sm", className }: Props) {
   useEffect(() => {
     let cancelled = false;
     const tick = async () => {
-      const all = await fetchAll();
+      const all = await fetchAllLiveStatuses();
       if (!cancelled) setStatus(all[slug] ?? { live: false, handle: null });
     };
     tick();
