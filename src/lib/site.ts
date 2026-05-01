@@ -9,7 +9,7 @@ export const SITE_SHORT = "CORE";
 export const GA_ID = "G-BG4VPN3LGG";
 
 export const SITE_DESCRIPTION =
-  "CORE (Create Own Run Everything) is the content collective home of Marlon (Marlon Garcia), Lacy (Nicholas Fosco), Silky (Jerry Woo), Adapt (Alex Prynkiewicz), Ron (Stable Ronaldo / Rani Netz) and Jason (JasonTheWeen / Jason Nguyen). The flagship site is under maintenance — every channel is still live below.";
+  "CORE (Create Own Run Everything), also known as The Core Boys, is the content collective home of Adapt (Alex Prynkiewicz), Jason (Jason Nguyen / JasonTheWeen), Ron (Rani Netz / Stable Ronaldo), Lacy (Nicholas Fosco), Marlon (Marlon Garcia), & Silky (Jerry Woo).";
 
 export const SITE_KEYWORDS = [
   "CORE",
