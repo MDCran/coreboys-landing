@@ -3,7 +3,7 @@
 Temporary maintenance lander for **CORE — Create Own Run Everything**, the
 content collective home of Marlon, Lacy, Silky, Adapt, Ron and Jason.
 
-The flagship CORE site is being rebuilt; this lander surfaces every official
+The flagship CORE site is being rebuilt; this lander surfaces every official 
 group and member channel in one place while it's down.
 
 ## Stack
