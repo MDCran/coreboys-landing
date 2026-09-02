@@ -1,5 +1,10 @@
 # coreboys-landing
 
+[![Security checks](https://github.com/MDCran/coreboys-landing/actions/workflows/security-checks.yml/badge.svg)](https://github.com/MDCran/coreboys-landing/actions/workflows/security-checks.yml) [![CodeQL](https://github.com/MDCran/coreboys-landing/actions/workflows/codeql.yml/badge.svg)](https://github.com/MDCran/coreboys-landing/security/code-scanning)
+
+> Deployment and branch rules: read [`DEPLOYMENT_STRATEGY.md`](./DEPLOYMENT_STRATEGY.md)
+> before provisioning, deploying, or changing DNS.
+
 Temporary maintenance lander for **CORE — Create Own Run Everything**, the
 content collective home of Marlon, Lacy, Silky, Adapt, Ron and Jason.
 
