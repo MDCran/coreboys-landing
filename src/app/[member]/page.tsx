@@ -10,8 +10,11 @@ import {
   type Member,
 } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
+import { ArrowUpRight, LayoutAlt01, Users01 } from "@untitledui/icons";
 import { breadcrumbSchema, faqSchema, personSchema } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
+import { FeaturedIcon } from "@/components/foundations/featured-icon/featured-icon";
+import { BackgroundPattern } from "@/components/shared-assets/background-patterns";
 import SocialButton from "@/components/SocialButton";
 import LiveBadge from "@/components/LiveBadge";
 import SiteFooter from "@/components/SiteFooter";
@@ -170,7 +173,7 @@ export default async function MemberPage(props: PageProps<"/[member]">) {
               )}
               {m.community && (
                 <span
-                  className="inline-flex items-center gap-3 border-2 px-3 py-2 font-mono text-[11px] tracking-[0.25em] uppercase"
+                  className="inline-flex items-center gap-3 rounded-lg border px-3 py-2 font-mono text-[11px] tracking-[0.25em] uppercase shadow-xs-skeuomorphic ring-1 ring-inset ring-transparent"
                   style={{
                     borderColor: m.color,
                     background: `color-mix(in oklch, ${m.color} 14%, transparent)`,
@@ -259,6 +262,13 @@ function FactSheet({ m }: { m: Member }) {
     <section className="mx-auto max-w-[1400px] px-5 py-16 sm:px-8 lg:py-20">
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12 md:col-span-3">
+          <FeaturedIcon
+            icon={<LayoutAlt01 className="size-6" />}
+            color="brand"
+            theme="dark"
+            size="lg"
+            className="mb-4"
+          />
           <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">
             Fact Sheet
           </p>
@@ -285,9 +295,22 @@ function FactSheet({ m }: { m: Member }) {
 
 function RelatedRoster({ others }: { others: Member[] }) {
   return (
-    <section className="border-t border-[var(--line)]">
-      <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-6 px-5 py-16 sm:px-8 lg:py-20">
+    <section className="relative overflow-hidden border-t border-[var(--line)]">
+      {/* Decorative grid pattern accent */}
+      <BackgroundPattern
+        pattern="grid"
+        size="md"
+        className="absolute right-0 top-0 z-0 translate-x-1/4 -translate-y-1/4 text-border-secondary/60"
+      />
+      <div className="relative z-10 mx-auto grid max-w-[1400px] grid-cols-12 gap-6 px-5 py-16 sm:px-8 lg:py-20">
         <div className="col-span-12 md:col-span-3">
+          <FeaturedIcon
+            icon={<Users01 className="size-6" />}
+            color="brand"
+            theme="dark"
+            size="lg"
+            className="mb-4"
+          />
           <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">
             Roster · Other Members
           </p>
@@ -316,7 +339,11 @@ function RelatedRoster({ others }: { others: Member[] }) {
                     <span className="font-display text-2xl tracking-tight">
                       {o.alias}
                     </span>
-                    <Arrow />
+                    <ArrowUpRight
+                      data-icon
+                      className="size-3.5 shrink-0 text-[var(--muted)] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      aria-hidden
+                    />
                   </div>
                 </Link>
               </li>
@@ -325,23 +352,5 @@ function RelatedRoster({ others }: { others: Member[] }) {
         </div>
       </div>
     </section>
-  );
-}
-
-function Arrow() {
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      className="size-3 -rotate-45 transition group-hover:rotate-0"
-      aria-hidden
-    >
-      <path
-        d="M3 8h10M9 4l4 4-4 4"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        fill="none"
-        strokeLinecap="square"
-      />
-    </svg>
   );
 }

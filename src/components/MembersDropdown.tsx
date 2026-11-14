@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowUpRight, ChevronDown } from "@untitledui/icons";
 import { MEMBERS, MEMBER_COLOR, getMember } from "@/lib/data";
 
 export default function MembersDropdown() {
@@ -42,7 +43,7 @@ export default function MembersDropdown() {
           onClick={() => setOpen((v) => !v)}
           aria-haspopup="menu"
           aria-expanded={open}
-          className="dropdown-trigger flex items-center gap-1.5 sm:gap-2 border border-[var(--line)] bg-[var(--bg)]/40 py-0.5 pl-0.5 pr-2 sm:py-1 sm:pl-1 sm:pr-3 hover:border-[var(--accent)]"
+          className="dropdown-trigger flex items-center gap-1.5 rounded-full border border-secondary bg-secondary py-0.5 pl-0.5 pr-2.5 shadow-xs-skeuomorphic ring-1 ring-inset ring-transparent transition hover:bg-primary_hover sm:gap-2 sm:py-1 sm:pl-1 sm:pr-3"
           style={{
             ["--name-color" as string]:
               MEMBER_COLOR[current.slug] ?? "var(--accent)",
@@ -63,13 +64,11 @@ export default function MembersDropdown() {
           >
             {current.alias}
           </span>
-          <svg
-            viewBox="0 0 12 12"
-            className={`size-2.5 text-[var(--muted)] transition ${open ? "rotate-180" : ""}`}
+          <ChevronDown
+            data-icon
+            className={`size-3.5 shrink-0 text-[var(--muted)] transition ${open ? "rotate-180" : ""}`}
             aria-hidden
-          >
-            <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.4" fill="none" />
-          </svg>
+          />
         </button>
       ) : (
         <button
@@ -77,25 +76,23 @@ export default function MembersDropdown() {
           onClick={() => setOpen((v) => !v)}
           aria-haspopup="menu"
           aria-expanded={open}
-          className="dropdown-trigger flex items-center gap-1.5 sm:gap-2 border border-[var(--line)] bg-[var(--bg)]/40 px-2 py-1 sm:px-3 sm:py-1.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[var(--fg)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+          className="dropdown-trigger flex items-center gap-1.5 rounded-lg border border-secondary bg-secondary px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-secondary shadow-xs-skeuomorphic ring-1 ring-inset ring-transparent transition hover:bg-primary_hover hover:text-secondary_hover sm:gap-2 sm:text-[11px] sm:tracking-[0.3em]"
         >
           Members
-          <svg
-            viewBox="0 0 12 12"
-            className={`size-2.5 transition ${open ? "rotate-180" : ""}`}
+          <ChevronDown
+            data-icon
+            className={`size-3.5 shrink-0 transition ${open ? "rotate-180" : ""}`}
             aria-hidden
-          >
-            <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.4" fill="none" />
-          </svg>
+          />
         </button>
       )}
 
       {open && (
         <div
           role="menu"
-          className="absolute right-0 md:left-0 md:right-auto top-[calc(100%+8px)] z-50 w-[min(300px,calc(100vw-2rem))] origin-top border border-[var(--line)] bg-[var(--bg)]/95 p-1 shadow-2xl backdrop-blur-md"
+          className="dropdown-panel absolute right-0 md:left-0 md:right-auto top-[calc(100%+10px)] z-50 w-[min(320px,calc(100vw-2rem))] origin-top overflow-hidden rounded-2xl border border-secondary bg-primary p-1.5 shadow-xl ring-1 ring-inset ring-secondary_alt backdrop-blur-md"
         >
-          <div className="border-b border-[var(--line)] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--muted)]">
+          <div className="border-b border-secondary px-3 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-tertiary">
             The Roster · 6
           </div>
           <ul className="py-1">
@@ -105,6 +102,7 @@ export default function MembersDropdown() {
                 <li key={m.slug}>
                   <button
                     type="button"
+                    role="menuitem"
                     onClick={() => {
                       setOpen(false);
                       router.push(`/${m.slug}`);
@@ -113,7 +111,7 @@ export default function MembersDropdown() {
                       ["--name-color" as string]:
                         MEMBER_COLOR[m.slug] ?? "var(--accent)",
                     }}
-                    className={`member-row group flex w-full items-center justify-between gap-3 px-2 py-2 text-left transition ${isActive ? "is-active" : ""}`}
+                    className={`member-row group flex w-full items-center justify-between gap-3 rounded-lg px-2 py-2 text-left transition ${isActive ? "is-active" : ""}`}
                   >
                     <span className="flex items-center gap-3">
                       <span className="relative size-9 shrink-0 overflow-hidden rounded-full border border-[var(--line)] bg-black">
@@ -139,32 +137,26 @@ export default function MembersDropdown() {
                         </span>
                       </span>
                     </span>
-                    <svg
-                      viewBox="0 0 16 16"
-                      className="size-3 -rotate-45 transition group-hover:rotate-0"
+                    <ArrowUpRight
+                      data-icon
+                      className="size-3.5 shrink-0 text-[var(--muted)] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                       aria-hidden
-                    >
-                      <path
-                        d="M3 8h10M9 4l4 4-4 4"
-                        stroke="currentColor"
-                        strokeWidth="1.4"
-                        fill="none"
-                        strokeLinecap="square"
-                      />
-                    </svg>
+                    />
                   </button>
                 </li>
               );
             })}
           </ul>
           {current && (
-            <div className="border-t border-[var(--line)]">
+            <div className="mt-1 border-t border-secondary pt-1">
               <Link
                 href="/"
+                role="menuitem"
                 onClick={() => setOpen(false)}
-                className="flex w-full items-center gap-2 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--muted)] transition hover:text-[var(--accent)]"
+                className="flex w-full items-center gap-2 rounded-lg px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-tertiary transition hover:bg-primary_hover hover:text-brand-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring-focus)]"
               >
-                ← Back to TheCoreBoys
+                <ArrowLeft data-icon className="size-3.5 shrink-0" aria-hidden />
+                Back to TheCoreBoys
               </Link>
             </div>
           )}

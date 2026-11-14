@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
+import { ChevronLeft, ChevronRight, X } from "@untitledui/icons";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 type Props = {
@@ -187,15 +188,7 @@ function Lightbox({
             aria-label="Previous"
             className="absolute left-4 top-1/2 z-10 grid size-12 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur transition hover:border-[var(--accent)] hover:text-[var(--accent)] sm:left-8"
           >
-            <svg viewBox="0 0 16 16" className="size-4" aria-hidden>
-              <path
-                d="M11 2L5 8l6 6"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                fill="none"
-                strokeLinecap="square"
-              />
-            </svg>
+            <ChevronLeft data-icon className="size-5 shrink-0" aria-hidden />
           </button>
 
           <button
@@ -207,15 +200,7 @@ function Lightbox({
             aria-label="Next"
             className="absolute right-4 top-1/2 z-10 grid size-12 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur transition hover:border-[var(--accent)] hover:text-[var(--accent)] sm:right-8"
           >
-            <svg viewBox="0 0 16 16" className="size-4" aria-hidden>
-              <path
-                d="M5 2l6 6-6 6"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                fill="none"
-                strokeLinecap="square"
-              />
-            </svg>
+            <ChevronRight data-icon className="size-5 shrink-0" aria-hidden />
           </button>
 
           <button
@@ -227,15 +212,7 @@ function Lightbox({
             aria-label="Close"
             className="absolute right-4 top-4 z-10 grid size-10 place-items-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
           >
-            <svg viewBox="0 0 16 16" className="size-4" aria-hidden>
-              <path
-                d="M3 3l10 10M13 3L3 13"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                fill="none"
-                strokeLinecap="square"
-              />
-            </svg>
+            <X data-icon className="size-4 shrink-0" aria-hidden />
           </button>
 
           <motion.div

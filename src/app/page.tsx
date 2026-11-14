@@ -1,12 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ArrowRight, ArrowUpRight, Users01 } from "@untitledui/icons";
+import { Button } from "@/components/base/buttons/button";
 import LiveBadge from "@/components/LiveBadge";
 import SocialButton from "@/components/SocialButton";
 import SceneClient from "@/components/SceneClient";
 import HouseTour from "@/components/HouseTour";
 import SiteFooter from "@/components/SiteFooter";
 import GroupPhoto3DClient from "@/components/GroupPhoto3DClient";
+import BrandCTA from "@/components/BrandCTA";
 import JsonLd from "@/components/JsonLd";
 import { GROUP, MEMBERS, MEMBER_COLOR, type SocialKey } from "@/lib/data";
 import { faqSchema, personSchema, HOME_FAQ } from "@/lib/seo";
@@ -32,6 +35,7 @@ export default function Page() {
       <HouseTour />
       <Marquee />
       <Roster />
+      <BrandCTA />
       <SrRoster />
       <SiteFooter />
     </main>
@@ -55,7 +59,7 @@ function Hero() {
             className="col-span-12 lg:col-span-6 reveal"
             style={{ animationDelay: "100ms" }}
           >
-            <p className="mb-6 inline-flex items-center gap-2 border border-[var(--accent)]/60 bg-[var(--bg)]/70 px-3 py-1 font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--accent)] shadow-[0_0_30px_rgba(255,59,31,0.15)] backdrop-blur">
+            <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/60 bg-[var(--bg)]/70 px-3 py-1 font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--accent)] shadow-[0_0_30px_rgba(255,59,31,0.15)] backdrop-blur">
               <span className="size-1.5 rounded-full bg-[var(--accent)] animate-blink" />
               Content Organization
             </p>
@@ -71,7 +75,26 @@ function Hero() {
               <span className="opacity-30">.</span>
             </p>
 
-            <div className="mt-6">
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <Button
+                href="#members"
+                size="xl"
+                color="primary"
+                iconTrailing={<ArrowRight data-icon className="size-5 shrink-0" />}
+              >
+                Meet the roster
+              </Button>
+              <Button
+                href="#house-tour"
+                size="xl"
+                color="secondary"
+                iconLeading={<Users01 data-icon className="size-5 shrink-0" />}
+              >
+                Watch the house tour
+              </Button>
+            </div>
+
+            <div className="mt-8">
               <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--muted)]">
                 Group Socials
               </p>
@@ -154,7 +177,12 @@ function Roster() {
       id="members"
       className="relative mx-auto max-w-[1400px] px-5 py-24 sm:px-8 lg:py-32"
     >
-      <header className="mb-10 grid grid-cols-12 items-end gap-6">
+      {/* Decorative dot-grid + grain wash behind the roster header */}
+      <div
+        aria-hidden
+        className="bg-dot-grid pointer-events-none absolute inset-x-0 top-0 z-0 h-72 opacity-[0.06] [mask-image:linear-gradient(to_bottom,black,transparent)]"
+      />
+      <header className="relative z-10 mb-10 grid grid-cols-12 items-end gap-6">
         <div className="col-span-12 md:col-span-6">
           <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--muted)]">
             Roll Call
@@ -227,19 +255,11 @@ function Roster() {
                   </p>
                   <span className="mt-2 inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--muted)] opacity-0 transition group-hover:opacity-100">
                     Open page
-                    <svg
-                      viewBox="0 0 16 16"
-                      className="size-2.5 -rotate-45 transition group-hover:rotate-0"
+                    <ArrowUpRight
+                      data-icon
+                      className="size-3 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                       aria-hidden
-                    >
-                      <path
-                        d="M3 8h10M9 4l4 4-4 4"
-                        stroke="currentColor"
-                        strokeWidth="1.4"
-                        fill="none"
-                        strokeLinecap="square"
-                      />
-                    </svg>
+                    />
                   </span>
                 </div>
               </article>

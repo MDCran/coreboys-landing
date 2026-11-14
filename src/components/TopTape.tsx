@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ArrowLeft } from "@untitledui/icons";
 import SocialButton from "./SocialButton";
 import Countdown, { HOUSE_TOUR_TARGET, useCountdownDone } from "./Countdown";
 import MembersDropdown from "./MembersDropdown";
@@ -22,17 +23,9 @@ export default function TopTape() {
             <Link
               href="/"
               aria-label="Back to TheCoreBoys home"
-              className="grid size-7 shrink-0 place-items-center border border-[var(--line)] text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+              className="grid size-8 shrink-0 place-items-center rounded-lg border border-secondary bg-secondary text-[var(--muted)] shadow-xs-skeuomorphic ring-1 ring-inset ring-transparent transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
             >
-              <svg viewBox="0 0 16 16" className="size-3" aria-hidden>
-                <path
-                  d="M13 8H3M7 4L3 8l4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                  fill="none"
-                  strokeLinecap="square"
-                />
-              </svg>
+              <ArrowLeft data-icon className="size-3.5 shrink-0" aria-hidden />
             </Link>
           )}
           <Link

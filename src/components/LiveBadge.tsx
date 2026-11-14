@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { BadgeWithDot } from "@/components/base/badges/badges";
 import { fetchAllLiveStatuses, type LiveStatus } from "@/lib/twitchLive";
 
 type Status = LiveStatus;
@@ -29,16 +30,15 @@ export default function LiveBadge({ slug, size = "sm", className }: Props) {
   }, [slug]);
 
   if (!status?.live) return null;
-  const dotSize = size === "md" ? "size-1.5" : "size-1";
-  const text = size === "md" ? "text-[10px]" : "text-[9px]";
 
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full border border-[#9146FF]/60 bg-[#9146FF]/15 px-2 py-0.5 font-mono ${text} tracking-[0.18em] uppercase text-[#d6c5ff] ${className ?? ""}`}
+      className={`inline-flex animate-blink ${className ?? ""}`}
       title={status.handle ? `Live on twitch.tv/${status.handle}` : "Live on Twitch"}
     >
-      <span className={`${dotSize} rounded-full bg-[#9146FF] animate-blink`} />
-      Live · Twitch
+      <BadgeWithDot color="purple" type="pill-color" size={size}>
+        Live · Twitch
+      </BadgeWithDot>
     </span>
   );
 }

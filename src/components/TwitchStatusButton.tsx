@@ -1,9 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ArrowUpRight } from "@untitledui/icons";
+import { Button } from "@/components/base/buttons/button";
 import { fetchAllLiveStatuses, type LiveStatus } from "@/lib/twitchLive";
 
-const TWITCH_PURPLE = "#9146FF";
+/* Twitch brand colors — named platform constants (mapped to CSS tokens in
+ * globals.css). Third-party brand colors are exempt from the no-hex rule but
+ * must be named rather than inlined as raw hex. */
+const TWITCH_ON = "var(--platform-twitch-on)";
+const TWITCH_OFFLINE_FG = "var(--platform-twitch-offline-fg)";
+const TWITCH_PURPLE = "var(--platform-twitch)";
 
 type Props = {
   slug: string;
@@ -30,64 +37,57 @@ export default function TwitchStatusButton({ slug, twitchUrl }: Props) {
   const live = !!status?.live;
 
   return (
-    <a
+    <Button
       href={twitchUrl}
       target="_blank"
       rel="noreferrer noopener"
+      size="lg"
+      color={live ? "primary" : "secondary"}
+      iconLeading={<TwitchGlyph />}
+      iconTrailing={ArrowUpRight}
       aria-label={
         live
           ? "Live on Twitch — watch now"
           : "Twitch channel (currently offline)"
       }
-      className="twitch-status group inline-flex items-center gap-2.5 border-2 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] transition"
+      className="twitch-status group"
       style={{
-        borderColor: live ? TWITCH_PURPLE : "rgba(145, 70, 255, 0.45)",
-        background: live
-          ? `color-mix(in oklch, ${TWITCH_PURPLE} 22%, transparent)`
-          : "transparent",
-        color: live ? "#e9dcff" : "#c8b8ff",
+        ...(live
+          ? {
+              backgroundColor: TWITCH_PURPLE,
+              color: TWITCH_ON,
+            }
+          : {
+              color: TWITCH_OFFLINE_FG,
+            }),
       }}
     >
-      <TwitchGlyph color={TWITCH_PURPLE} />
       {live ? (
-        <span className="flex items-center gap-2">
+        <span className="inline-flex items-center gap-2">
           <span className="relative inline-flex size-2">
             <span
               className="absolute inset-0 rounded-full"
-              style={{ background: TWITCH_PURPLE }}
+              style={{ background: TWITCH_ON }}
             />
             <span
-              className="absolute inset-0 rounded-full opacity-60"
-              style={{ background: TWITCH_PURPLE, animation: "blink 1.4s ease-in-out infinite" }}
+              className="absolute inset-0 rounded-full opacity-60 animate-blink"
+              style={{ background: TWITCH_ON }}
             />
           </span>
-          <span>Live · Watch Now</span>
+          Live · Watch Now
         </span>
       ) : (
-        <span>Offline</span>
+        "Offline"
       )}
-      <svg
-        viewBox="0 0 16 16"
-        className="size-2.5 -rotate-45 transition group-hover:rotate-0"
-        aria-hidden
-      >
-        <path
-          d="M3 8h10M9 4l4 4-4 4"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          fill="none"
-          strokeLinecap="square"
-        />
-      </svg>
-    </a>
+    </Button>
   );
 }
 
-function TwitchGlyph({ color }: { color: string }) {
+function TwitchGlyph() {
   return (
-    <svg viewBox="0 0 24 24" className="size-4" aria-hidden>
+    <svg data-icon="leading" viewBox="0 0 24 24" className="size-4" aria-hidden>
       <path
-        fill={color}
+        fill="currentColor"
         d="M4.3 2 3 5.3v14.4h4.7V22h2.7l2.3-2.3h3.7L21 15V2H4.3Zm15.4 12L17 16.7h-4.7l-2.3 2.3v-2.3H6.3V3.7h13.4V14ZM15 6.7h1.7v5H15v-5Zm-4.3 0h1.6v5h-1.6v-5Z"
       />
     </svg>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight } from "@untitledui/icons";
 import SocialIcon from "./SocialIcon";
 import { type SocialKey, SOCIAL_LABEL } from "@/lib/data";
 import { BRAND_COLOR, BRAND_GRADIENT, BRAND_TEXT_ON, handleFromUrl, labelForChannel } from "@/lib/socials";
@@ -89,12 +90,12 @@ export default function SocialButton({
   const baseClass = (() => {
     switch (variant) {
       case "row":
-        return "group brand-hover flex w-full items-center justify-between gap-3 border border-[var(--line)] bg-[var(--bg)]/40 px-3 py-2.5 text-sm text-[var(--fg)] transition hover:border-[var(--brand)] hover:text-[var(--on-brand)]";
+        return "group brand-hover flex w-full items-center justify-between gap-3 rounded-lg border border-secondary bg-secondary px-3.5 py-2.5 text-sm font-semibold text-secondary shadow-xs-skeuomorphic ring-1 ring-inset ring-transparent transition hover:border-[var(--brand)] hover:text-[var(--on-brand)]";
       case "compact":
-        return "relative brand-hover flex w-full items-center justify-center gap-1.5 border border-[var(--line)] px-2 py-2.5 text-[var(--fg)] transition hover:border-[var(--brand)] hover:text-[var(--on-brand)]";
+        return "relative brand-hover flex w-full items-center justify-center gap-1.5 rounded-lg border border-secondary bg-secondary px-2 py-2.5 text-secondary shadow-xs-skeuomorphic transition hover:border-[var(--brand)] hover:text-[var(--on-brand)]";
       case "icon":
       default:
-        return "brand-hover-icon grid size-7 sm:size-9 place-items-center rounded-full text-[var(--muted)] transition hover:text-[var(--on-brand)]";
+        return "brand-hover-icon grid size-11 sm:size-9 place-items-center rounded-lg text-fg-quaternary ring-1 ring-inset ring-transparent transition hover:text-[var(--on-brand)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg)]";
     }
   })();
 
@@ -134,10 +135,10 @@ export default function SocialButton({
       {open && (
         <div
           role="menu"
-          className="absolute right-0 top-[calc(100%+6px)] z-50 min-w-[240px] origin-top-right border border-[var(--line)] bg-[var(--bg)]/95 p-1 shadow-2xl backdrop-blur-md"
+          className="dropdown-panel absolute right-0 top-[calc(100%+8px)] z-50 min-w-[240px] origin-top-right overflow-hidden rounded-2xl border border-secondary bg-primary p-1.5 shadow-xl ring-1 ring-inset ring-secondary_alt backdrop-blur-md"
           style={{ borderColor: brand }}
         >
-          <div className="border-b border-[var(--line)] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--muted)]">
+          <div className="border-b border-secondary px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-tertiary">
             {SOCIAL_LABEL[kind]} · {urls.length} channels
           </div>
           <ul className="py-1">
@@ -145,9 +146,10 @@ export default function SocialButton({
               <li key={u}>
                 <a
                   href={u}
+                  role="menuitem"
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="group/item flex items-center justify-between gap-3 px-3 py-2 text-sm transition hover:bg-[var(--brand)] hover:text-[var(--on-brand)]"
+                  className="group/item flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm text-secondary transition hover:bg-[var(--brand)] hover:text-[var(--on-brand)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring-focus)]"
                   onClick={() => setOpen(false)}
                 >
                   <span className="font-mono text-[11px] tracking-[0.05em]">
@@ -166,18 +168,10 @@ export default function SocialButton({
 
 function Arrow({ small }: { small?: boolean }) {
   return (
-    <svg
-      viewBox="0 0 16 16"
-      className={`${small ? "size-2.5" : "size-3"} -rotate-45 transition group-hover:rotate-0 group-hover/item:rotate-0`}
+    <ArrowUpRight
+      data-icon
+      className={`${small ? "size-3" : "size-3.5"} shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5`}
       aria-hidden
-    >
-      <path
-        d="M3 8h10M9 4l4 4-4 4"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        fill="none"
-        strokeLinecap="square"
-      />
-    </svg>
+    />
   );
 }

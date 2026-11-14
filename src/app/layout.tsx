@@ -112,7 +112,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bebas.variable} ${bricolage.variable} ${jetbrains.variable} antialiased`}
+      className={`dark-mode ${bebas.variable} ${bricolage.variable} ${jetbrains.variable} antialiased`}
     >
       <head>
         <link rel="canonical" href={SITE_URL} />

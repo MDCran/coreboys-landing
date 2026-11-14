@@ -1,5 +1,32 @@
 @import "tailwindcss";
 
+/* ── Untitled UI engine (Core Boys signal-red brand) ──────────────────────── */
+@import "../styles/theme.css";
+@import "../styles/typography.css";
+
+@plugin "@tailwindcss/typography";
+@plugin "tailwindcss-react-aria-components";
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:where(.dark-mode, .dark-mode *));
+@custom-variant label (& [data-label]);
+@custom-variant focus-input-within (&:has(input:focus));
+
+@utility scrollbar-hide {
+  &::-webkit-scrollbar {
+    display: none;
+    -webkit-appearance: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@utility transition-inherit-all {
+  transition-property: inherit;
+  transition-duration: inherit;
+  transition-timing-function: inherit;
+}
+
 :root {
   --bg: #0a0908;
   --fg: #f2eee5;
@@ -8,6 +35,20 @@
   --accent: #ff3b1f;
   --accent-soft: #ffb39d;
   --signal: #ff3b1f;
+
+  /* Named surfaces used by bespoke tooltips/popovers so component CSS never
+   * hardcodes raw hex (tokens/consistency rule). */
+  --surface-inverted: var(--fg);
+  --ink-inverted: var(--bg);
+
+  /* Platform brand color — Twitch purple. Named constant per the
+   * "third-party brand colors allowed but named" rule. */
+  --platform-twitch: #9146ff;
+  --platform-twitch-on: #ffffff;
+  --platform-twitch-offline-fg: #c8b8ff;
+
+  /* Focus ring (matches Untitled UI brand focus tone). */
+  --ring-focus: var(--accent);
 }
 
 @theme inline {
@@ -111,7 +152,7 @@
   height: 0;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid #f2eee5;
+  border-bottom: 6px solid var(--surface-inverted);
   transform: translate(-50%, 4px);
   opacity: 0;
   transition: opacity 0.18s ease, transform 0.18s ease;
@@ -132,8 +173,8 @@
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #0a0908;
-  background-color: #f2eee5;
+  color: var(--ink-inverted);
+  background-color: var(--surface-inverted);
   border-radius: 4px;
   box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.6);
   opacity: 0;
@@ -155,7 +196,7 @@
   top: auto;
   bottom: calc(100% + 2px);
   border-bottom: none;
-  border-top: 6px solid #f2eee5;
+  border-top: 6px solid var(--surface-inverted);
   transform: translate(-50%, -4px);
 }
 .tooltipped[data-tooltip-position="top"]::after {
@@ -232,12 +273,25 @@
 
 .brand-hover-icon {
   position: relative;
+  cursor: pointer;
   transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 .brand-hover-icon:hover {
   color: var(--brand);
   background-color: color-mix(in oklch, var(--brand) 18%, transparent);
   box-shadow: 0 0 0 1px var(--brand) inset;
+}
+
+/* Visible brand focus ring for all bespoke interactive elements
+ * (2px solid, 2px offset) — never rely on the removed UA outline. */
+.brand-hover:focus-visible,
+.brand-hover-icon:focus-visible,
+.member-pill:focus-visible,
+.member-row:focus-visible,
+.dropdown-trigger:focus-visible,
+.twitch-status:focus-visible {
+  outline: 2px solid var(--ring-focus);
+  outline-offset: 2px;
 }
 
 /* ---------- Member-color pill (footer) ---------- */
@@ -266,6 +320,24 @@
 }
 .member-card:hover .member-photo {
   filter: grayscale(0) brightness(1.05);
+}
+
+/* Dropdown / menu panel entry — opacity + translateY(-4 -> 0) over 150ms.
+ * Wrapped in prefers-reduced-motion at the bottom of this file. */
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .dropdown-panel {
+    animation: dropdown-in 0.15s ease-out both;
+  }
 }
 
 /* Members dropdown row hover */
@@ -311,19 +383,19 @@
   height: 100%;
 }
 
-/* Twitch status button hover */
+/* Twitch status button hover — uses named platform token (Twitch purple) */
 .twitch-status {
   cursor: pointer;
 }
 .twitch-status:hover {
-  background: color-mix(in oklch, #9146FF 36%, transparent) !important;
-  border-color: #9146FF !important;
-  color: #ffffff !important;
-  box-shadow: 0 8px 28px -8px rgba(145, 70, 255, 0.7);
+  background: color-mix(in oklch, var(--platform-twitch) 36%, transparent) !important;
+  border-color: var(--platform-twitch) !important;
+  color: var(--platform-twitch-on) !important;
+  box-shadow: 0 8px 28px -8px color-mix(in oklch, var(--platform-twitch) 70%, transparent);
   transform: translateY(-1px);
 }
 .twitch-status:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.97);
 }
 
 /* Navbar wordmark — keep "the" and "coreboys" identical in size/weight */
@@ -456,4 +528,45 @@
 }
 .reveal {
   animation: reveal 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* ---------- Reduced motion ---------- */
+/* Honor the OS "reduce motion" preference: kill non-essential looping/entry
+ * animations and movement-based transforms, but keep opacity/color cues so
+ * state changes remain perceivable. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-blink,
+  .animate-drift,
+  .animate-glow-pulse,
+  .reveal,
+  .play-btn,
+  .play-btn::before {
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Neutralize translate/scale hover & press transforms (keep color/shadow). */
+  .brand-hover:hover,
+  .brand-hover:focus-visible,
+  .member-row:hover,
+  .member-row:active,
+  .dropdown-trigger:active,
+  .twitch-status:hover,
+  .twitch-status:active,
+  .play-btn:hover,
+  .group:hover .play-btn,
+  .group:focus-visible .play-btn {
+    transform: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
 }
